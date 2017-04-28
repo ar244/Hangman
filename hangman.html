@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hangman</title>
+
+  	<!-- Added a link to Bootstrap-->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  	<link rel="stylesheet" type="text/css" href="hangman.css">
+
+  	<!-- JQuery -->
+  	<script src="https://code.jquery.com/jquery.js"></script>
+
+</head>
+
+<body>
+
+	<!-- Overall Bootstrap Grid -->
+  	<div class="container">
+
+    <!-- Jumbotron with Title -->
+    <div class="jumbotron">
+      <h1 class="text-center"><strong>Hangman</strong></h1>
+		
+	</div>
+	
+	<div class="row1">
+		<h2 class="text-center"><strong>Enter a letter to guess the word</strong></h2>
+	</div>
+
+	<div class="row2">
+		<h4 id="count" class="text-center"></h4>
+	</div>
+
+	<div class="row3">
+		<div id="underscores" class="text-center"></div>
+	</div>
+	
+	<div class="row4">
+		<div class="text-center">
+			<button id="reset" class="text-center">Reset Game</button>
+		</div>
+	</div>
+
+	<div class="row" id="buttonsRow">
+		<div id="buttons" class=text-center></div>
+	</div>
+
+	
+
+	<script type="text/javascript">
+		
+		var wordList = ["attribute", "excavate", "blitz", "galvanize", "espionage", "galaxy", "mnemonic", "transplant", "vaporize", "strengths"];
+
+		var word = ""; var wordArray = []; var ansArray = [];
+		var wrongGuessArray = [];
+		var wrongGuess = 10;
+
+		var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
+                 'n', 'o', 'p', 'q', 'r', 's', 't','u', 'v', 'w', 'x','y', 'z'];
+
+
+		var setupGame = function() {
+			var word = wordList[Math.floor(Math.random() * 10)];
+			//word = "attribute";
+			wordArray = word.split("");
+			ansArray = word.split("").map(function () {
+										return "_";
+			});
+			wrongGuess = 10;
+			wrongGuessArray = [];
+
+			document.getElementById("count").innerHTML = "You have "+ wrongGuess + " guesses left";
+			document.getElementById("underscores").innerHTML = "";
+			var str = "";
+			for (var i=0; i<ansArray.length; i++) {
+				str+= " " + ansArray[i] + " ";
+			}
+			document.getElementById("underscores").innerHTML = str;
+
+			// set up letter buttons
+			var b = document.getElementById("buttons");
+			b.innerHTML="";
+			for (var i=0; i<alphabet.length; i++) {
+				var letterButton = document.createElement("button");
+				letterButton.id = "alpha";
+				letterButton.innerHTML = alphabet[i];
+				
+				b.appendChild(letterButton);
+
+		
+				
+				letterButton.onclick = function() {
+					
+					this.style.backgroundColor = "lightgrey";
+					var letter = this.innerHTML;
+				console.log(letter);
+
+				var ind = word.indexOf(letter);
+				console.log(ind);
+				if ((ind == -1) && (wrongGuessArray.indexOf(letter) == -1)) {
+					wrongGuess--;
+					wrongGuessArray.push(letter);
+					document.getElementById("count").innerHTML = "You have "+ wrongGuess + " guesses left";
+					console.log(letter +" not found")
+				} else {
+					while (ind > -1) {
+
+						ansArray[ind] = letter;
+
+						document.getElementById("underscores").innerHTML = "";
+						var str = "";
+						for (var i=0; i<ansArray.length; i++) {
+							str+= " " + ansArray[i] + " ";
+						}
+						document.getElementById("underscores").innerHTML = str;
+					
+						ind = wordArray.indexOf(letter, ind+1);
+
+					} // while (ind > -1)
+				}
+				if (wrongGuess == 0) {
+					alert("You lose! The word is " + word);
+					
+
+				} else {
+					if (ansArray.indexOf("_") == -1) {
+						document.getElementById("count").innerHTML = "You Win!!!";
+						//alert("You win!");
+					}
+				}
+		
+			} // onclick
+		
+		}
+	}
+
+	setupGame();
+		
+
+	document.getElementById('reset').onclick = function() {
+			setupGame();
+		}
+
+	
+
+	</script>
+
+</body>
+</html>
+
+
+
+
+

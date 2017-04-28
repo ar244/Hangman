@@ -1,0 +1,35 @@
+body {
+	background-color: #1d507b;
+	color:white;
+}
+#underscores {
+	padding:20px;
+	margin-top:20px;
+	margin-bottom: 20px;
+	font-size: 40px;
+}
+
+/*.row1, .row2, .row3, .row4 {
+	background-color: #1d507b;
+	color: white;
+}
+*/
+.jumbotron {
+	background-color: #1d507b;
+	color: white;
+}
+
+
+#reset {
+	color: black;
+	margin-bottom: 10px;
+}
+
+#alpha {
+	height: 40px;
+	width: 40px;
+}
+
+#buttonsRow {
+	color:black;
+}
