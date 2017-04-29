@@ -62,7 +62,7 @@
 
 		var setupGame = function() {
 			var word = wordList[Math.floor(Math.random() * 10)];
-			//word = "attribute";
+			
 			wordArray = word.split("");
 			ansArray = word.split("").map(function () {
 										return "_";
@@ -140,7 +140,7 @@
 
 	document.getElementById('reset').onclick = function() {
 			setupGame();
-		}
+	}
 
 	
 
